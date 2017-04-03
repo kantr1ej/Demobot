@@ -23,23 +23,22 @@ int horizontal; //ch1 pin 5
 int vertical; //ch2 pin 10
 int mappedVal;            //horiz
 int mappedVal2;           //vert
-//IR
 
 
 
+//function for manual clow close
 void rcClawClose(Servo claw){
     claw.write(92+8);
     delay(800);
     claw.write(92);
 }
-
+//function for autonomous claw close
 void clawClose(Servo claw){
     claw.write(92+8);
     delay(400);
     noDrive(ST);
     claw.write(92+8);
     delay(400);
-//    delay(800);
     claw.write(92);
     delay(2500);
 }
@@ -105,21 +104,16 @@ void loop() {
   int navIR = analogRead(A0);
   int clawIR = analogRead(A1);
   
-  horizontal = pulseIn(10, HIGH, 25000);                                                                 //channel 2 for horizontal
-  vertical = pulseIn(5, HIGH, 25000);                                                                  //channel 1 for vertical stick
-  rcClaw = pulseIn(6, HIGH, 25000);                                                                        //must be plugged in for everything to work, for some reason 
+  horizontal = pulseIn(10, HIGH, 25000);                                                     //channel 2 for horizontal
+  vertical = pulseIn(5, HIGH, 25000);                                                        //channel 1 for vertical stick
+  rcClaw = pulseIn(6, HIGH, 25000);                                                          //must be plugged in for everything to work, for some reason 
   
 
 mappedVal = map(horizontal ,1100,1900,-127,127);
 mappedVal2 = map(vertical,1100,1900,-127,127);
-//Serial.print("vertical\n");
-//Serial.println(mappedVal);
-//Serial.print("horizontal\n");
-//Serial.println(mappedVal2);
+
 Serial.print("clawIR");
 Serial.println(navIR);
-
-//Serial.println(rcClaw);
 
 if(mappedVal < -300){
     
